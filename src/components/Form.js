@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 import { Select } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 const { Option } = Select;
 
 const Form = () => {
   const dispatch = useDispatch();
   var [skills, setSkills] = useState({});
-
   const [data, setData] = useState({
     fullName: "",
     birthDate: "",
     skills: [],
   });
-
   const [errors, setErrors] = useState({});
 
   const handleValidate = () => {
@@ -23,12 +21,13 @@ const Form = () => {
       errors.birthdate = "BIRTH DATE IS REQUIRED";
     return Object.keys(errors).length === 0 ? null : errors;
   };
-  console.log("ERRORS", errors);
+
   const handleChange = (e) => {
     const newData = { ...data };
     newData[e.target.name] = e.target.value;
     setData(newData);
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const errors = handleValidate();
@@ -44,6 +43,7 @@ const Form = () => {
       },
     });
   };
+
   function handleSelectChange(value) {
     console.log(`selected ${value}`);
     const skillObj = {
@@ -51,9 +51,9 @@ const Form = () => {
       value: value,
     };
     console.log("skillObj", skillObj);
-
     setSkills(skillObj);
   }
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
@@ -90,7 +90,6 @@ const Form = () => {
         mode="multiple"
         style={{ width: "100%" }}
         placeholder="select your skill"
-        // defaultValue={["china"]}
         onChange={handleSelectChange}
         optionLabelProp="label"
       >
