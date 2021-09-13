@@ -33,3 +33,28 @@
 .ant-pagination {
   margin-top: 1rem !important;
 }
+
+.skills {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.skills .skill-item {
+  width: 150px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background-color: gray;
+  color: #fff;
+  position: relative;
+  padding: 1rem;
+}
+
+.skills .skill-item .delete-icon {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+}
