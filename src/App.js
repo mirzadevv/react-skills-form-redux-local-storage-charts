@@ -1,17 +1,22 @@
 import React, { useState } from "react";
+import "./App.css";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import { v4 as uuidv4 } from "uuid";
 import { Pagination } from "antd";
-import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
+import { Select } from "antd";
+const { Option } = Select;
+
 const App = () => {
   const dispatch = useDispatch();
   const formData = useSelector((state) => state.formData);
   const [data, setData] = useState({
     fullName: "",
     birthDate: "",
+    skills: [],
   });
 
+  var [skills, setSkills] = useState({});
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(3);
 
@@ -29,6 +34,7 @@ const App = () => {
         id: uuidv4(),
         fullName: data.fullName,
         birthDate: data.birthDate,
+        skills: skills,
       },
     });
   };
@@ -48,6 +54,19 @@ const App = () => {
   //   names[0] = prompt("New member name?");
   //   localStorage.setItem("names", JSON.stringify(names));
   // }, []);
+
+  function handleSelectChange(value) {
+    console.log(`selected ${value}`);
+    const skillObj = {
+      id: uuidv4(),
+      value: value,
+    };
+    console.log("skillObj", skillObj);
+
+    setSkills(skillObj);
+  }
+
+  console.log("skills", skills);
 
   return (
     <div className="app">
@@ -76,8 +95,30 @@ const App = () => {
           />
         </div>
         <br />
+        <Select
+          mode="multiple"
+          style={{ width: "100%" }}
+          placeholder="select your skill"
+          // defaultValue={["china"]}
+          onChange={handleSelectChange}
+          optionLabelProp="label"
+        >
+          <Option value="javascript" label="javascript">
+            <div className="demo-option-label-item">JavaScript</div>
+          </Option>
+          <Option value="python" label="python">
+            <div className="demo-option-label-item">Python</div>
+          </Option>
+          <Option value="php" label="php">
+            <div className="demo-option-label-item">PHP</div>
+          </Option>
+        </Select>
 
-        <button type="submit" className="btn btn-primary">
+        <button
+          style={{ marginTop: "1rem" }}
+          type="submit"
+          className="btn btn-primary"
+        >
           Submit
         </button>
       </form>
@@ -101,6 +142,15 @@ const App = () => {
                   {" "}
                   <span className="title">BirthDate:</span>{" "}
                   <span className="value">{item.birthDate}</span>
+                </div>
+                <div className="item-info">
+                  {" "}
+                  <span className="title">Skills:</span>{" "}
+                  <span className="value">
+                    {item?.skills?.value.map((item) => (
+                      <span key={item}> {item}, </span>
+                    ))}
+                  </span>
                 </div>
                 <button
                   onClick={() => dispatch({ type: "delete", payload: item })}
