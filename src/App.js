@@ -8,7 +8,7 @@ import { paginate } from "./utils/paginate";
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(3);
+  const pageSize = 3;
   const dispatch = useDispatch();
   const formData = useSelector((state) => state.formData);
   const paginateFormData = paginate(formData, currentPage, pageSize);
@@ -21,7 +21,6 @@ const App = () => {
   return (
     <div className="app">
       <Form />
-
       <div className="show-data">
         {formData.length === 0 && (
           <p style={{ fontWeight: "bold" }}> THERE ARE NO DATA TO SHOW </p>
