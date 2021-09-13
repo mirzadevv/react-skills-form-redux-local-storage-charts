@@ -13,6 +13,17 @@ const Form = () => {
     birthDate: "",
     skills: [],
   });
+
+  const [errors, setErrors] = useState({});
+
+  const handleValidate = () => {
+    const errors = {};
+    if (data.fullName.trim() === "") errors.fullName = "FULL NAME IS REQUIRED";
+    if (data.birthDate.trim() === "")
+      errors.birthdate = "BIRTH DATE IS REQUIRED";
+    return Object.keys(errors).length === 0 ? null : errors;
+  };
+  console.log("ERRORS", errors);
   const handleChange = (e) => {
     const newData = { ...data };
     newData[e.target.name] = e.target.value;
@@ -20,6 +31,9 @@ const Form = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    const errors = handleValidate();
+    setErrors({ errors: errors || {} });
+    if (errors) return;
     dispatch({
       type: "add",
       payload: {
@@ -52,6 +66,9 @@ const Form = () => {
           value={data.fullName}
           onChange={(e) => handleChange(e)}
         />
+        <span style={{ color: "red", fontSize: "0.7rem" }}>
+          {errors?.errors?.fullName}
+        </span>
       </div>
       <br />
       <div className="form-group">
@@ -64,6 +81,9 @@ const Form = () => {
           value={data.birthDate}
           onChange={(e) => handleChange(e)}
         />
+        <span style={{ color: "red", fontSize: "0.7rem" }}>
+          {errors?.errors?.birthdate}
+        </span>
       </div>
       <br />
       <Select
