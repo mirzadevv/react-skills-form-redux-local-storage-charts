@@ -43,8 +43,8 @@ const App = () => {
                 {" "}
                 <span className="title">Skills:</span>{" "}
                 <span className="value">
-                  {item?.skills?.value?.map((item) => (
-                    <span key={item}> {item}, </span>
+                  {item?.skills?.map((item) => (
+                    <span key={item.id}> {item.value}, </span>
                   ))}
                 </span>
               </div>
