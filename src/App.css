@@ -29,3 +29,7 @@
   color: rgba(235, 10, 10, 0.781);
   font-size: large;
 }
+
+.ant-pagination {
+  margin-top: 1rem;
+}
