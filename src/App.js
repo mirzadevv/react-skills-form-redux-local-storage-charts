@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +14,6 @@ const App = () => {
   const paginateFormData = paginate(formData, currentPage, pageSize);
 
   const hanlePageChange = (page) => {
-    console.log(page);
     setCurrentPage(page);
   };
 
