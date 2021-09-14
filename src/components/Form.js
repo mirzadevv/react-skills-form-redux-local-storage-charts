@@ -13,6 +13,7 @@ const Form = () => {
   });
   const [errors, setErrors] = useState({});
   const [skills, setSkills] = useState([]);
+  const [skillsWithPercent, setSkillsWithPercent] = useState([]);
 
   const handleValidate = () => {
     const errors = {};
@@ -28,6 +29,16 @@ const Form = () => {
     setData(newData);
   };
 
+  useEffect(() => {
+    let newSkills = [...skills];
+    let length = newSkills.length;
+    newSkills.map((skill) => {
+      let val = 1 / length;
+      skill.value = val * 100;
+    });
+    setSkillsWithPercent(newSkills);
+  }, [skills]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const errors = handleValidate();
@@ -39,7 +50,7 @@ const Form = () => {
         id: uuidv4(),
         fullName: data.fullName,
         birthDate: data.birthDate,
-        skills: skills,
+        skills: skillsWithPercent,
       },
     });
     data.fullName = "";
@@ -47,12 +58,12 @@ const Form = () => {
     setSkills([]);
   };
 
-  function handleSelectChange(value) {
-    const haveFound = skills.find((skill) => skill.value === value);
+  function handleSelectChange(name) {
+    const haveFound = skills.find((skill) => skill.name === name);
     if (skills.length === 0 || !haveFound) {
       const skillObject = {
         id: uuidv4(),
-        value: value,
+        name: name,
       };
       const newSkills = [...skills];
       newSkills.push(skillObject);
@@ -111,13 +122,14 @@ const Form = () => {
           <Option value="javascript">javascript</Option>
           <Option value="python">python</Option>
           <Option value="php">php</Option>
+          <Option value="basic">basic</Option>
         </Select>
 
         <div className="skills">
           {skills.map((skill) => (
             <div key={skill.id} className="skill-item">
               {" "}
-              {skill.value}
+              {skill.name}
               <i
                 className="far fa-trash-alt delete-icon"
                 onClick={() => handleDeleteSkill(skill.id)}
