@@ -1,71 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./App.css";
-import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
-import { useDispatch, useSelector } from "react-redux";
-import Form from "./components/Form";
-import Pagination from "./components/Pagination";
-import { paginate } from "./utils/paginate";
+import Home from "./pages/home";
+import Charts from "./pages/charts";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 3;
-  const dispatch = useDispatch();
-  const formData = useSelector((state) => state.formData);
-  const paginateFormData = paginate(formData, currentPage, pageSize);
-
-  const hanlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-
   return (
-    <div className="app">
-      <Form />
-      <div className="show-data">
-        {formData.length === 0 && (
-          <p style={{ fontWeight: "bold" }}> THERE ARE NO DATA TO SHOW </p>
-        )}
-
-        {paginateFormData.map((item) => (
-          <div key={item.id}>
-            <div className="item">
-              <div className="item-info">
-                {" "}
-                <span className="title">FullName:</span>{" "}
-                <span className="value">{item.fullName}</span>
-              </div>
-              <div className="item-info">
-                {" "}
-                <span className="title">BirthDate:</span>{" "}
-                <span className="value">{item.birthDate}</span>
-              </div>
-              <div className="item-info">
-                {" "}
-                <span className="title">Skills:</span>{" "}
-                <span className="value">
-                  {item?.skills?.map((item) => (
-                    <span key={item.id}> {item.value}, </span>
-                  ))}
-                </span>
-              </div>
-              <button
-                onClick={() => dispatch({ type: "delete", payload: item })}
-                type="button"
-                className="btn btn-danger"
-              >
-                Delete
-              </button>
-            </div>
-            <hr />
-          </div>
-        ))}
-        <Pagination
-          itemsCount={formData.length}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          onPageChange={hanlePageChange}
-        />
+    <Router>
+      <div className="app">
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/charts" exact component={Charts} />
+        </Switch>
       </div>
-    </div>
+    </Router>
   );
 };
 
