@@ -58,3 +58,26 @@
   top: 2px;
   right: 2px;
 }
+
+.chart-link {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+.chart-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-bottom: 1rem;
+}
+
+.chart-container .pie-chart {
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.chart-container .pie-chart .chart-title {
+  text-align: center;
+  margin-top: -3rem;
+  font-weight: bold;
+}
