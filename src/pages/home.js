@@ -43,7 +43,7 @@ const Home = () => {
                 <span className="title">Skills:</span>{" "}
                 <span className="value">
                   {item?.skills?.map((item) => (
-                    <span key={item.id}> {item.value}, </span>
+                    <span key={item.id}> {item.name}, </span>
                   ))}
                 </span>
               </div>
