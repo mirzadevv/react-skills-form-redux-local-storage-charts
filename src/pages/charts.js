@@ -18,7 +18,7 @@ const Chart = () => {
       {formData.length === 0 && <h1>There are no charts to show </h1>}
       <div className="chart-container">
         {paginateFormData.map((item) => (
-          <div className="pie-chart">
+          <div key={item.id} className="pie-chart">
             <PieChart width={400} height={400}>
               <Pie
                 dataKey="value"
